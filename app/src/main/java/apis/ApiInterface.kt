@@ -6,9 +6,9 @@ import retrofit2.http.Path
 
 interface ApiInterface {
     @GET("/user")
-    suspend fun getUsers(): Response<UserResponse>
+    suspend fun getPosts(): Response<UserResponse>
 
     @GET("/user")
-    suspend fun getUsers(@Path("id") userid: Int): Response<User>
+    suspend fun getPosts(@Path("id") userid: Int): Response<User>
 
 }

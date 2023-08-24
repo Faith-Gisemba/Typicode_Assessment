@@ -14,7 +14,7 @@ class UserViewModel : ViewModel() {
 
     fun fetchUsers() {
         viewModelScope.launch {
-            val response = userRepo.getUsers()
+            val response = userRepo.getPosts()
             if (response.isSuccessful) {
                 userLiveData.postValue(response.body()?.users)
             } else {
