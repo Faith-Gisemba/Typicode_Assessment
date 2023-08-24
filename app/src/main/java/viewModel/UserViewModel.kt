@@ -3,23 +3,25 @@ package viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import giseys.Product
+import apis.User
 import kotlinx.coroutines.launch
-import repository.ProductRepository
+import repository.UserRepository
 
-class ProductViewModel : ViewModel() {
-    private val productRepo = ProductRepository()
-    val productLiveData = MutableLiveData<List<Product>>()
+class UserViewModel : ViewModel() {
+    private val userRepo = UserRepository()
+    val userLiveData = MutableLiveData<List<User>>()
     val errorLiveData = MutableLiveData<String>()
 
-    fun fetchProducts() {
+    fun fetchUsers() {
         viewModelScope.launch {
-            val response = productRepo.getProducts()
+            val response = userRepo.getUsers()
             if (response.isSuccessful) {
-                productLiveData.postValue(response.body()?.products)
+                userLiveData.postValue(response.body()?.users)
             } else {
                 errorLiveData.postValue(response.errorBody()?.string())
             }
         }
     }
 }
+
+

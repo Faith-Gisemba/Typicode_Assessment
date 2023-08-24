@@ -1,18 +1,18 @@
 package ui
 
-    import androidx.appcompat.app.AppCompatActivity
     import android.os.Bundle
     import android.widget.Toast
     import androidx.activity.viewModels
+    import androidx.appcompat.app.AppCompatActivity
     import androidx.lifecycle.Observer
     import androidx.recyclerview.widget.LinearLayoutManager
-    import giseys.ProductsAdapter
-    import com.gisey.myyshop.databinding.ActivityMainBinding
-    import viewModel.ProductViewModel
+    import apis.UsersAdapter
+    import com.gisey.typicode.databinding.ActivityMainBinding
+    import viewModel.UserViewModel
 
-    class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
         private lateinit var binding: ActivityMainBinding
-        private val productViewModel: ProductViewModel by viewModels()
+        private val userViewModel: UserViewModel by viewModels()
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -22,15 +22,15 @@ package ui
 
         override fun onResume() {
             super.onResume()
-            productViewModel.fetchProducts()
-            productViewModel.productLiveData.observe(this, Observer { productList ->
-                val productAdapter = ProductsAdapter(productList ?: emptyList())
-                binding.rvProducts.layoutManager = LinearLayoutManager(this@MainActivity)
-                binding.rvProducts.adapter = productAdapter
-                Toast.makeText(baseContext, "Fetched ${productList?.size} products", Toast.LENGTH_LONG).show()
+            userViewModel.fetchUsers()
+            userViewModel.userLiveData.observe(this, Observer { userList ->
+                val userAdapter = UsersAdapter(userList?: emptyList())
+                binding.rvUsers.layoutManager = LinearLayoutManager(this@MainActivity)
+                binding.rvUsers.adapter = userAdapter
+                Toast.makeText(baseContext, "Fetched ${userList?.size} users", Toast.LENGTH_LONG).show()
             })
 
-            productViewModel.errorLiveData.observe(this, Observer { error ->
+            userViewModel.errorLiveData.observe(this, Observer { error ->
                 Toast.makeText(baseContext, error, Toast.LENGTH_LONG).show()
             })
         }
